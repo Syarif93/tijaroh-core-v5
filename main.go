@@ -15,6 +15,7 @@ func init() {
 
 func main() {
 	file := process.LoggerFile()
+	defer file.Close()
 
 	app := fiber.New()
 	app.Use(logger.New(logger.Config{

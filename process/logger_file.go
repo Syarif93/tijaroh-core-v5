@@ -1,7 +1,6 @@
 package process
 
 import (
-	"log"
 	"os"
 	"time"
 )
@@ -9,7 +8,7 @@ import (
 func LoggerFile() *os.File {
 	loc, timeErr := time.LoadLocation(Env().TimeZone)
 	if timeErr != nil {
-		panic(timeErr)
+		panic(timeErr.Error())
 	}
 	time := time.Now().In(loc)
 
@@ -19,9 +18,9 @@ func LoggerFile() *os.File {
 		fileName = "dev"
 	}
 
-	file, err := os.OpenFile("./logs/"+fileName+".log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
-	if err != nil {
-		log.Fatal(err)
+	file, fileErr := os.OpenFile("./logs/"+fileName+".log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
+	if fileErr != nil {
+		panic(fileErr.Error())
 	}
 
 	return file

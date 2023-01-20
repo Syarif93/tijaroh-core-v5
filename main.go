@@ -21,5 +21,9 @@ func main() {
 		Output: file,
 	}))
 
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Status(200).JSON(fiber.Map{"message": "Server Online"})
+	})
+
 	app.Listen(":" + process.Env().AppPort)
 }

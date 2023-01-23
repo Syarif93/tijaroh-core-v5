@@ -2,13 +2,15 @@ package response
 
 import "github.com/gofiber/fiber/v2"
 
-func Output(c *fiber.Ctx, message string, errors interface{}, item interface{}, items interface{}) fiber.Map {
+func Output(c *fiber.Ctx, message string, errors interface{}, item interface{}, items []interface{}) fiber.Map {
 	output := fiber.Map{
 		"statusCode": c.Response().StatusCode(),
 		"message":    message,
 		"errors":     errors,
-		"item":       item,
-		"items":      items,
+		"data": fiber.Map{
+			"item":  item,
+			"items": items,
+		},
 	}
 
 	return output
